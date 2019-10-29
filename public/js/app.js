@@ -2239,9 +2239,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['companies'],
+  props: ['companies', 'roles'],
   data: function data() {
     return {
       first_name: null,
@@ -2249,7 +2259,8 @@ __webpack_require__.r(__webpack_exports__);
       password: '',
       phone: null,
       email: null,
-      company: this.companies[0].name,
+      company: this.companies[0].id,
+      role: this.roles[0].id,
       errors: []
     };
   },
@@ -2263,6 +2274,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('email', this.email);
       formData.append('password', this.password);
       formData.append('phone', this.phone);
+      formData.append('role', this.role);
       formData.append('company_id', this.company);
       axios.post('/employee', formData).then(function (res) {
         var name = res.data;
@@ -2357,9 +2369,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['employee', 'companies'],
+  props: ['employee', 'companies', 'roles'],
   data: function data() {
     return {
       first_name: this.employee.first_name,
@@ -2368,13 +2390,13 @@ __webpack_require__.r(__webpack_exports__);
       phone: this.employee.phone,
       email: this.employee.email,
       company: this.companies[0].id,
+      role: this.roles[0].id,
       errors: []
     };
   },
   methods: {
     closeModal: function closeModal() {
       this.$emit('cerrar');
-      console.log("cerrar");
     },
     updateEmployee: function updateEmployee() {
       var _this = this;
@@ -2385,7 +2407,8 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password,
         phone: this.phone,
-        company_id: this.company
+        company_id: this.company,
+        role: this.role
       }).then(function (res) {
         var name = res.data;
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
@@ -2459,9 +2482,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['employees', 'companies'],
+  props: ['employees', 'companies', 'roles'],
   data: function data() {
     return {
       openModal: false,
@@ -41635,6 +41662,61 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Roles")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.role,
+                              expression: "role"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.role = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        _vm._l(_vm.roles, function(company) {
+                          return _c(
+                            "option",
+                            {
+                              key: company.id,
+                              domProps: { value: company.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(company.name) +
+                                  "\n                        "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _vm.errors.company
+                        ? _c("span", [_vm._v(_vm._s(_vm.errors.company))])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "button",
                       {
@@ -41971,6 +42053,61 @@ var render = function() {
                         : _vm._e()
                     ]),
                     _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Roles")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.role,
+                              expression: "role"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.role = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        _vm._l(_vm.roles, function(company) {
+                          return _c(
+                            "option",
+                            {
+                              key: company.id,
+                              domProps: { value: company.id }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(company.name) +
+                                  "\n                        "
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _vm.errors.company
+                        ? _c("span", [_vm._v(_vm._s(_vm.errors.company))])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "button",
                       {
@@ -42016,7 +42153,11 @@ var render = function() {
     [
       _vm.openModal
         ? _c("edit-employee", {
-            attrs: { employee: _vm.employee, companies: _vm.companies },
+            attrs: {
+              employee: _vm.employee,
+              companies: _vm.companies,
+              roles: _vm.roles
+            },
             on: {
               cerrar: function($event) {
                 _vm.openModal = false
@@ -42025,7 +42166,9 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c("create-employee", { attrs: { companies: _vm.companies } }),
+      _c("create-employee", {
+        attrs: { companies: _vm.companies, roles: _vm.roles }
+      }),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
@@ -42048,7 +42191,9 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(employee.phone))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(employee.company_id))]),
+              _c("td", [_vm._v(_vm._s(employee.company))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(employee.role))]),
               _vm._v(" "),
               _c("td", [
                 _c(
@@ -42110,6 +42255,8 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Phone")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Company")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Rol")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Edit")])
       ])

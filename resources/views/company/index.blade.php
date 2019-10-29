@@ -4,18 +4,19 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
                     Companies
                 </div>
                 <div class="card-body">
-                    <edit
-                         items="{{$company}}"
-                    >
-                    </edit>
+
+                    <index-company
+                        :companies="{{$comps}}"
+                    ></index-company>
+
+                    <div class="center-block">{{$cop}}</div>
                 </div>
-                {{$company->name}}
             </div>
         </div>
     </div>

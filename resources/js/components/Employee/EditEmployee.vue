@@ -53,6 +53,16 @@
                         <span v-if="errors.company">{{errors.company}}</span>
                     </div>
 
+                    <div class="form-group">
+                        <label>Roles</label>
+                        <select class="form-control" v-model="role">
+                            <option v-for="company in roles" :value="company.id" :key="company.id">
+                                {{company.name}}
+                            </option>
+                        </select>
+                        <span v-if="errors.company">{{errors.company}}</span>
+                    </div>
+
                     <button type="submit" class="btn btn-success btn-block">Update employee</button>
                 </form>
             </div>
@@ -65,7 +75,7 @@
 import Swal from 'sweetalert2'
 
 export default {
-    props:['employee', 'companies'],
+    props:['employee', 'companies', 'roles'],
     data(){
         return{
             first_name:this.employee.first_name,
@@ -74,13 +84,13 @@ export default {
             phone: this.employee.phone,
             email: this.employee.email,
             company: this.companies[0].id,
+            role: this.roles[0].id,
             errors: [],
         }
     },
     methods:{
         closeModal(){
             this.$emit('cerrar')
-            console.log("cerrar")
         },
         updateEmployee(){
 
@@ -90,7 +100,8 @@ export default {
                 email: this.email,
                 password: this.password,
                 phone: this.phone,
-                company_id: this.company
+                company_id: this.company,
+                role: this.role
             })
             .then((res)=>{
                 let name = res.data;

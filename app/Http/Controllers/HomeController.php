@@ -24,8 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        \Auth::user()->authorizeRoles('Administrador');
-
         $companies = new CompanyController();
         return $companies->index();
     }

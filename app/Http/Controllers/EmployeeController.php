@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
+use App\{Employee, Role};
 use Illuminate\Foundation\Auth\Employee as IlluminateEmployee;
 use Illuminate\Http\Request;
 
@@ -15,12 +15,18 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        $paginateEmployees = Employee::select('employees.*', 'companies.name as company', 'roles.name as role')
+            ->join('companies', 'companies.id', '=', 'employees.company_id')
+            ->join('employee_role', 'employee_role.employee_id', '=', 'employees.id')
+            ->join('roles', 'roles.id', '=', 'employee_role.role_id')
+            ->paginate(10);
+
         $objCompanies = new CompanyController();
         $companies = $objCompanies->getCompanies();
+        $roles = Role::all();
 
-        $paginateEmployees = Employee::paginate(10);
         $employees = json_encode($paginateEmployees->items());
-        return view('employee.index', compact('employees', 'paginateEmployees', 'companies'));
+        return view('employee.index', compact('employees', 'paginateEmployees', 'companies', 'roles'));
     }
 
     /**
@@ -54,9 +60,11 @@ class EmployeeController extends Controller
         $employee->first_name = $request->first_name;
         $employee->phone = $request->phone;
         $employee->email = $request->email;
-        $employee->password = $request->password;
+        $employee->password = bcrypt($request->password);
         $employee->company_id = $request->company_id;
         $employee->save();
+
+        $employee->roles()->attach($request->role);
 
         return $employee->first_name;
     }
@@ -110,6 +118,11 @@ class EmployeeController extends Controller
         $employee->password = $request->password;
         $employee->company_id = $request->company_id;
         $employee->save();
+
+        $pivotmodel = $employee->roles()->wherePivot('employee_id', '=', $employee->id)->first()->pivot;
+        $pivotmodel->role_id = $request->role;
+        $pivotmodel->save();
+
 
         return $employee->first_name;
     }

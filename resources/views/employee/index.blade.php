@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
                     Companies
@@ -14,6 +14,7 @@
                     <index-employee
                         :employees="{{$employees}}"
                         :companies="{{$companies}}"
+                        :roles="{{$roles}}"
                     ></index-employee>
 
                     <div class="center-block">{{$paginateEmployees}}</div>

@@ -24,7 +24,7 @@ class CompanyController extends Controller
         $comps =  json_encode($cop->items());
         //return response()->json($cop);
 
-        return view('home', compact('cop', 'comps'));
+        return view('company.index', compact('cop', 'comps'));
     }
 
     public function getCompaniesPaginate(){

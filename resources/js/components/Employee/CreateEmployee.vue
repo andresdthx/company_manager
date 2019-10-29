@@ -57,6 +57,16 @@
                         <span v-if="errors.company">{{errors.company}}</span>
                     </div>
 
+                    <div class="form-group">
+                        <label>Roles</label>
+                        <select class="form-control" v-model="role">
+                            <option v-for="company in roles" :value="company.id" :key="company.id">
+                                {{company.name}}
+                            </option>
+                        </select>
+                        <span v-if="errors.company">{{errors.company}}</span>
+                    </div>
+
                     <button type="submit" class="btn btn-success btn-block">Create</button>
                 </form>
             </div>
@@ -69,7 +79,7 @@
 import Swal from 'sweetalert2'
 
 export default {
-    props:['companies'],
+    props:['companies', 'roles'],
     data(){
         return{
             first_name:null,
@@ -77,7 +87,8 @@ export default {
             password: '',
             phone: null,
             email: null,
-            company: this.companies[0].name,
+            company: this.companies[0].id,
+            role: this.roles[0].id,
             errors: [],
         }
     },
@@ -90,6 +101,7 @@ export default {
             formData.append('email', this.email)
             formData.append('password', this.password)
             formData.append('phone', this.phone)
+            formData.append('role', this.role)
             formData.append('company_id', this.company)
 
             axios.post('/employee',formData)

@@ -5,11 +5,13 @@
             v-if="openModal"
             :employee=employee
             :companies=companies
+            :roles=roles
             @cerrar="openModal = false"
         ></edit-employee>
 
         <create-employee
             :companies=companies
+            :roles=roles
         ></create-employee>
         <br>
 
@@ -21,6 +23,7 @@
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
             <th scope="col">Company</th>
+            <th scope="col">Rol</th>
             <th scope="col">Edit</th>
             </tr>
         </thead>
@@ -30,7 +33,8 @@
                 <td>{{employee.last_name}}</td>
                 <td>{{employee.email}}</td>
                 <td>{{employee.phone}}</td>
-                <td>{{employee.company_id}}</td>
+                <td>{{employee.company}}</td>
+                <td>{{employee.role}}</td>
                 <td>
                     <i style="cursor:pointer" title="Edit" @click="editEmployee(employee)" data-toggle="modal" data-target="#editModalEmployee" class="material-icons">edit</i>
                     <i style="cursor:pointer" title="Delete" @click="deleteEmployee(employee.id)" class="material-icons">delete</i>
@@ -45,7 +49,7 @@
 import Swal from 'sweetalert2'
 
     export default {
-        props:['employees', 'companies'],
+        props:['employees', 'companies', 'roles'],
 
         data(){
             return{

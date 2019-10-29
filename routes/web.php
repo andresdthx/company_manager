@@ -11,8 +11,12 @@
 |
 */
 
-Route::resource('company', 'CompanyController');
-Route::resource('employee', 'EmployeeController');
+Route::group(['middleware'=>'admin'], function(){
+    Route::resource('company', 'CompanyController');
+    Route::resource('employee', 'EmployeeController');
+    Route::get('/home', 'HomeController@index')->name('home');
+});
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,4 +24,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
