@@ -6,7 +6,7 @@ PostgreSQL
 VueJS
 
 ##Change language
-config/app.php -> 'locale' => {'en','es', 'br'}
+Rute: config/app.php -> 'locale' => {'en','es', 'br'}
 
 ## developed by Andrés Canchila
 
